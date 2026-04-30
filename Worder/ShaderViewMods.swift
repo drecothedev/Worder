@@ -51,3 +51,12 @@ struct SlideIn: Transition {
             .opacity(phase.isIdentity ? 1.0 : 0.0)
     }
 }
+
+struct Float: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content
+            .scaleEffect(phase.isIdentity ? 1.0 : 0.5)
+            .offset(phase.isIdentity ? CGSize(width: 0, height: 0) : CGSize(width: 0, height: -200))
+            .opacity(phase.isIdentity ? 1.0 : 0.0)
+    }
+}

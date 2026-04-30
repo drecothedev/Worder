@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct SuggestionView: View {
+    
+    @Binding var searchWord: String
+    @Binding var suggestedWords: [String]
+    var words = WordBank.words
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(suggestedWords, id: \.self) { suggestedWord in
+                    Button(action: {
+                        searchWord = suggestedWord
+                    }) {
+                        TextBackgroundView(text: suggestedWord)
+                            .foregroundStyle(.white)
+                        
+                    }
+                    .transition(PopUp())
+                    .padding(.vertical)
+                }
+            }
+        }.scrollIndicators(.hidden)
     }
 }
 
 #Preview {
-    SuggestionView()
+    SuggestionView(searchWord: .constant("Hee"),suggestedWords: .constant(["Hello", "world", "earth", "too", "gym", "fjajfoiaj", "hoeih"]))
 }

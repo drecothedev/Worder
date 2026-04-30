@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct TextBackgroundView: View {
+    var text: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Text(text)
+                .foregroundStyle(.primary)
+            Capsule()
+                .stroke(.ultraThickMaterial)
+                .stroke(.gray.gradient)
+                .frame(width: 110, height: 40)
+        }
     }
 }
 
 #Preview {
-    TextBackgroundView()
+    TextBackgroundView(text: "hello")
 }
