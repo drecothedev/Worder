@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var trie: Trie
+    
     @State private var searchWord: String = ""
     @State private var doesContain: Bool = false
     @State private var isNewWordDetected: Bool = false
@@ -15,7 +17,7 @@ struct ContentView: View {
     @State private var isDone: Bool = false // Notifes if animation is done.
     @State private var addNewWord: Bool = false
     @State private var addedWordMessage: String = ""
-    let trie = Trie()
+    
     var body: some View {
         VStack {
             HStack {
@@ -68,10 +70,7 @@ struct ContentView: View {
                 addedWordMessage = ""
             }
         }
-        .onAppear {
-            trie.insertWords()
-        }
-        .frame(width: .infinity, height: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     func addWord(_ word: String) {
@@ -81,4 +80,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(Trie(words: WordBank.words))
 }

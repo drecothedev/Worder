@@ -6,6 +6,15 @@
 //
 
 import Foundation
+/*
+Description:
+Contains the initial words to be loaded in our Trie.
+Responsibilities:
+    - Manage words to be inserted in the Trie
+Notes:
+    - Will not contain any of the new words inserted by the user.
+*/
+
 
 struct WordBank {
     var words: [String]

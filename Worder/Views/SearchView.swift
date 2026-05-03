@@ -15,9 +15,8 @@ struct SearchView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
 
-            TextField(placeholder, text: $searchWord)
+            TextField(placeholder.capitalized, text: $searchWord)
                 .autocorrectionDisabled()
-                .textCase(.lowercase)
         }
         .padding()
         .background(

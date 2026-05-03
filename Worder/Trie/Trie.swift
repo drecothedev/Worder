@@ -5,24 +5,55 @@
 //  Created by Andre jones on 4/26/26.
 //
 
-import Foundation
+/*
+Description:
+Defines our Trie
+    - A data structure also know as a prefix tree. Helps store words by storing letters individually.
+    - We traverse the Trie to find words, insert words, and find words starting with a specific prefix.
+    - Tries give us fast lookup, insert, and checking for a common prefix quickly.
+    - Each Trie will contain children nodes representing subsequent characters. Each Trie will also contain a boolean marking whether it is the last character within the word.
+Responsibilities:
+    - Handle insert, find, and checking methods
+    - Hold characters representing words based on their relationship with children nodes.
+    - Mark the end of the words
+    - Update the sugguest words based on the current prefix
+    - Load initial words into word bank
+Notes:
+    - Gives us look up ability in a variety of ways. Time and space complexity is O(n) for inserts and lookups
+*/
 
-class Trie {
+import Foundation
+internal import Combine
+
+
+class Trie: ObservableObject {
     var children: [Trie?] = Array(repeating: nil, count: 26)
     var isEnd: Bool = false
-    let words = WordBank.words
-        
     
-    func insertWords() {
+    @Published var suggestedWords: [String] = []
+    
+    // Initialize with words from word bank
+    init(words: [String]) {
         for word in words {
             insert(key: word)
         }
     }
     
+    // Generic initializer. Meant for adding nodes to Trie
+    private init() {}
+
+    
+    /*
+    Inserts a word into the Trie.
+
+    - Parameter word: The word to be added to the Trie.
+    - Complexity: O(n), where n is the length of the word.
+    - Note: Creates new nodes only when necessary.
+    */
     func insert(key: String) {
         // init current pointer with root node.
         var current = self
-        print("adding word... \(key)")
+        
         for char in key {
             // Get index
             guard let c = char.asciiValue, let a = Character("a").asciiValue else { return }
@@ -31,15 +62,21 @@ class Trie {
                 return
             }
             if current.children[i] == nil {
-                let newNode = Trie()
-                current.children[i] = newNode
+                current.children[i] = Trie()
             }
             current = current.children[i]!
         }
-        print("word added!")
+
         current.isEnd = true
     }
     
+    /*
+    Searches a word into the Trie.
+
+    - Parameter word: The word to be searched in the Trie.
+    - Complexity: O(n), where n is the length of the word.
+    - Note: If a node is not found we return false.
+    */
     func search(_ key: String) -> Bool {
         var current = self
         
@@ -60,6 +97,13 @@ class Trie {
         return current.isEnd
     }
     
+    /*
+    Checks for common prefix within the Trie
+
+    - Parameter prefix: The current prefix
+    - Complexity: O(n), where n is the length of the prefix.
+    - Note:
+    */
     func startsWith(_ prefix: String) -> Bool {
         var current = self
         guard !prefix.isEmpty else { return false }
@@ -78,6 +122,13 @@ class Trie {
         return true
     }
     
+    /*
+    Checks and returns all words with a common prefix
+
+    - Parameter word: The current prefix
+    - Complexity: O(n), where n is the length of the word.
+    - Note: Returns all of the strings with a common prefix.
+    */
     func wordsStartingWith(_ prefix: String) -> [String] {
         var words: [String] = []
         var current = self
@@ -103,6 +154,16 @@ class Trie {
         return words
     }
     
+    /*
+    Helper DFS
+
+    - Parameters:
+        - root: Current Trie to be traversed
+        - currentWord: prefix checking for
+        - words: words matching the current prefix
+    - Complexity: O(n), where n is the length of the word.
+    - Note: Returns all of the strings with a common prefix.
+    */
     func dfs(_ root: Trie, currentWord: String, words: inout [String]) {
         let root = root
         if root.isEnd {

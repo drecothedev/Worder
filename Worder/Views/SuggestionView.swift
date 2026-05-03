@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SuggestionView: View {
-    
+    @Environment(\.colorScheme) var scheme
     @Binding var searchWord: String
     @Binding var suggestedWords: [String]
     var words = WordBank.words
@@ -17,10 +17,10 @@ struct SuggestionView: View {
             HStack {
                 ForEach(suggestedWords, id: \.self) { suggestedWord in
                     Button(action: {
-                        searchWord = suggestedWord
+                        searchWord = suggestedWord.capitalized
                     }) {
-                        TextBackgroundView(text: suggestedWord)
-                            .foregroundStyle(.white)
+                        TextBackgroundView(text: suggestedWord.capitalized)
+                            .foregroundStyle(scheme == .dark ? .white : .black)
                         
                     }
                     .transition(PopUp())
