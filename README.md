@@ -9,3 +9,7 @@ All methods within Trie will have O(n) and O(1) where n represents the length of
 
 ## Feedback
 Thank you for taking the time to take a look at my work. If you'd like to explore Trie's or SwiftUI feel free to download this and run in it in Xcode. This project has no ambitions of being anything professional so i highly welcome any feedback. Ciao!
+
+
+<img width="250" height="193" alt="image" src="https://github.com/user-attachments/assets/1f11922a-e81e-4612-b873-b73e8c5f9430" />
+
