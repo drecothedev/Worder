@@ -4,8 +4,6 @@
 //
 //  Created by Andre jones on 4/26/26.
 //
-
-import Foundation
 /*
 Description:
 Contains the initial words to be loaded in our Trie.
@@ -14,7 +12,7 @@ Responsibilities:
 Notes:
     - Will not contain any of the new words inserted by the user.
 */
-
+import Foundation
 
 struct WordBank {
     var words: [String]
