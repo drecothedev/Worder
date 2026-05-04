@@ -23,7 +23,7 @@ struct SuggestionView: View {
                             .foregroundStyle(scheme == .dark ? .white : .black)
                         
                     }
-                    .transition(PopUp())
+                    .transition(Twirl())
                     .padding(.vertical)
                 }
             }
